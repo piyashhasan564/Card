@@ -145,7 +145,7 @@
 
         /* ================= MIDDLE SECTION (Owners) ================= */
         .middle-section {
-            flex: 1;
+            
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -251,11 +251,11 @@
         .btn-info:active { transform: scale(0.95); }
 
         /* ================= BOTTOM SECTION (Share) ================= */
-        .bottom-section {
-            padding: 0 20px 20px 20px;
-            animation: fadeInUp 0.6s ease backwards;
-            animation-delay: 0.6s;
-        }
+       .bottom-section {
+    padding: 0 20px 80px 20px; /* নিচের প্যাডিং ২০ থেকে বাড়িয়ে ৮০ করে দিন */
+    animation: fadeInUp 0.6s ease backwards;
+    animation-delay: 0.6s;
+}
 
         .btn-share {
             width: 100%;
@@ -430,7 +430,40 @@
             70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
+        /* লোকেশন বাটনের ডিজাইন */
+.location-container {
+    padding: 0 20px 15px 20px;
+    animation: fadeInUp 0.6s ease backwards;
+    animation-delay: 0.5s;
+}
 
+.btn-location {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(79, 172, 254, 0.3);
+    color: #fff;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-location i {
+    color: #ff4b2b; /* আইকনের লাল রঙ */
+    font-size: 18px;
+}
+
+.btn-location:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4facfe;
+    transform: translateY(-2px);
+}
     </style>
 </head>
 <body>
@@ -485,7 +518,13 @@
                 </div>
 
             </div>
-
+<!-- Location Button -->
+<div class="location-container">
+    <a href="https://maps.app.goo.gl/emuMSx7FPn7BsrKz6?g_st=ac" target="_blank" class="btn-location">
+        <i class="fas fa-location-dot"></i>
+        <span>See Our Location on Google Maps</span>
+    </a>
+</div>
             <!-- Bottom / Share -->
             <div class="bottom-section">
                 <button class="btn-share" onclick="shareProfile()">
