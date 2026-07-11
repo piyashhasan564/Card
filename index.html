@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Business Card</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --text-main: #ffffff;
+            --primary-color: #4facfe; /* স্নিগ্ধ নীল কালার */
+            --call-color: #00E676; /* ব্রাইট গ্রিন */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* বাইরের ব্যাকগ্রাউন্ডের জন্য সফট ব্লু কালার */
+            background: linear-gradient(135deg, #8EC5FC 0%, #e0c3fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow: hidden; 
+        }
+
+        /* Main Card Container */
+        .card-container {
+            /* প্রিমিয়াম ডার্ক নেভি-ব্লু ব্যাকগ্রাউন্ড (হালকা কালারফুল ভাইব) */
+            background: linear-gradient(135deg, #121E31 0%, #1A2A42 50%, #0F172A 100%);
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            max-height: 900px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        @media (min-width: 450px) {
+            .card-container {
+                height: 95vh;
+                border-radius: 24px;
+            }
+        }
+
+        /* Page Layouts */
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            background-color: transparent; 
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #main-page {
+            transform: translateX(0);
+            z-index: 1;
+            overflow-y: auto; /* লেখা বেশি হলে স্ক্রল করা যাবে */
+            overflow-x: hidden;
+        }
+
+        .info-page {
+            transform: translateX(100%);
+            z-index: 5;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #121E31 0%, #1A2A42 100%);
+        }
+
+        .info-page.active {
+            transform: translateX(0);
+        }
+
+        /* ================= TOP SECTION ================= */
+        .top-section {
+            text-align: center;
+            animation: fadeInDown 0.8s ease backwards;
+            padding-bottom: 15px;
+        }
+
+        .cover-photo {
+            height: 160px;
+            background: #2c3e50 url('https://i.ibb.co.com/JWD7ZGpL/Screenshot-2026-06-25-03-04-40-54-a23b203fd3aafc6dcb84e438dda678b6.jpg') center/cover no-repeat;
+            position: relative;
+        }
+        
+        .cover-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), #121E31);
+        }
+
+        .company-header {
+            position: relative;
+            z-index: 2;
+            margin-top: -55px;
+            padding: 0 20px;
+        }
+
+        .company-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            background-color: #fff;
+            object-fit: contain;
+            padding: 5px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease;
+            margin-bottom: 5px;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* কোম্পানির ডেসক্রিপশন টেক্সট */
+        .company-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-top: 6px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* ================= MIDDLE SECTION (Owners) ================= */
+        .middle-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px 20px 20px;
+        }
+
+        /* Glassmorphism Effect */
+        .owner-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(79, 172, 254, 0.15); /* হালকা নীল বর্ডার */
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+        }
+
+        .owner-card:nth-child(1) { animation-delay: 0.2s; }
+        .owner-card:nth-child(2) { animation-delay: 0.4s; }
+
+        .owner-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border-color: rgba(79, 172, 254, 0.4);
+        }
+
+        .owner-info-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .owner-img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+            transition: 0.3s ease;
+        }
+
+        .owner-card:hover .owner-img {
+            border-color: #fff;
+            transform: scale(1.1);
+        }
+
+        .owner-text {
+            flex: 1;
+        }
+
+        .owner-text h3 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #fff;
+        }
+
+        .owner-text p {
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Action Buttons */
+        .action-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-row button, .action-row a {
+            flex: 1;
+            padding: 12px 0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-call {
+            background: linear-gradient(135deg, var(--call-color), #047857);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            animation: pulse-green 2s infinite;
+        }
+        .btn-call:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
+        .btn-call:active { transform: scale(0.95); }
+
+        .btn-info {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-info:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+        .btn-info:active { transform: scale(0.95); }
+
+        /* ================= BOTTOM SECTION (Share) ================= */
+        .bottom-section {
+            padding: 0 20px 20px 20px;
+            animation: fadeInUp 0.6s ease backwards;
+            animation-delay: 0.6s;
+        }
+
+        .btn-share {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), #00c6fb);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-share:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(79, 172, 254, 0.6); }
+        .btn-share:active { transform: scale(0.98); }
+
+
+        /* ================= SECONDARY PAGES (More Info) ================= */
+        .back-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(-3px); }
+
+        .full-profile {
+            text-align: center;
+            padding: 30px 20px 20px;
+        }
+
+        .full-profile img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 15px;
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+            transition: 0.5s ease;
+        }
+        .info-page.active .full-profile img {
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+            animation-delay: 0.2s;
+        }
+
+        .full-profile h2 { font-size: 24px; margin-bottom: 5px; }
+        .full-profile p { color: var(--primary-color); font-size: 15px; font-weight: 500; }
+
+        .contact-list {
+            padding: 10px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(79, 172, 254, 0.1);
+            
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* ছোট কল নাও বাটন (ডানপাশে থাকার জন্য) */
+        .small-call-btn {
+            background: linear-gradient(135deg, var(--call-color), #047857);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .info-page.active .contact-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .info-page.active .contact-item:nth-child(1) { transition-delay: 0.2s; }
+        .info-page.active .contact-item:nth-child(2) { transition-delay: 0.3s; }
+        .info-page.active .contact-item:nth-child(3) { transition-delay: 0.4s; }
+        .info-page.active .contact-item:nth-child(4) { transition-delay: 0.5s; }
+        .info-page.active .contact-item:nth-child(5) { transition-delay: 0.6s; }
+
+        .info-page.active .contact-item:hover { 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: translateX(8px) scale(1.02); 
+            border-color: rgba(79, 172, 254, 0.4);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-page.active .contact-item:hover .small-call-btn {
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.6);
+            transform: scale(1.05);
+        }
+
+        .contact-left i {
+            font-size: 20px;
+            color: var(--primary-color);
+            width: 30px;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .info-page.active .contact-item:hover .contact-left i {
+            transform: scale(1.2);
+            color: #fff;
+        }
+
+        /* ================= KEYFRAMES ================= */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        
+        <!-- ================= MAIN PAGE ================= -->
+        <div class="page" id="main-page">
+            
+            <!-- Top / Header -->
+            <div class="top-section">
+                <div class="cover-photo"></div>
+                <div class="company-header">
+                    <img src="https://via.placeholder.com/150" alt="Logo" class="company-logo">
+                    <h1 class="company-name">কোম্পানির নাম</h1>
+                    <!-- নতুন যোগ করা কোম্পানির বিবরণ -->
+                    <p class="company-desc">এখানে আপনার কোম্পানির সার্ভিস বা সুন্দর কোনো স্লোগান লিখতে পারবেন। এটি গ্রাহকদের আকৃষ্ট করতে সাহায্য করবে।</p>
+                </div>
+            </div>
+
+            <!-- Middle / Owners -->
+            <div class="middle-section">
+                
+                <!-- Owner 1 Box -->
+                <div class="owner-card">
+                    <div class="owner-info-row">
+                        <img src="https://via.placeholder.com/150" alt="Owner 1" class="owner-img">
+                        <div class="owner-text">
+                            <h3>প্রথম মালিকের নাম</h3>
+                            <p>Founder & CEO</p>
+                        </div>
+                    </div>
+                    <div class="action-row">
+                        <a href="tel:+8801700000001" class="btn-call"><i class="fas fa-phone-alt"></i> Call Now</a>
+                        <button class="btn-info" onclick="openPage('page-owner-1')">More Info <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Owner 2 Box -->
+                <div class="owner-card">
+                    <div class="owner-info-row">
+                        <img src="https://i.ibb.co.com/KzjwSvmN/avatar.jpg" alt="Owner 2" class="owner-img">
+                        <div class="owner-text">
+                            <h3>দ্বিতীয় মালিকের নাম</h3>
+                            <p>Manager</p>
+                        </div>
+                    </div>
+                    <div class="action-row">
+                        <a href="tel:+8801800000002" class="btn-call"><i class="fas fa-phone-alt"></i> Call Now</a>
+                        <button class="btn-info" onclick="openPage('page-owner-2')">More Info <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom / Share -->
+            <div class="bottom-section">
+                <button class="btn-share" onclick="shareProfile()">
+                    <i class="fas fa-share-nodes"></i> Share Card
+                </button>
+            </div>
+            
+        </div>
+
+
+        <!-- ================= OWNER 1 INFO PAGE ================= -->
+        <div class="page info-page" id="page-owner-1">
+            <div class="back-header">
+                <button class="back-btn" onclick="closePage('page-owner-1')"><i class="fas fa-arrow-left"></i> Back</button>
+            </div>
+            
+            <div class="full-profile">
+                <img src="https://via.placeholder.com/150" alt="Owner 1">
+                <h2>প্রথম মালিকের নাম</h2>
+                <p>Founder & CEO</p>
+            </div>
+
+            <div class="contact-list">
+                <a href="tel:+8801700000001" class="contact-item">
+                    <span class="contact-left"><i class="fas fa-mobile-alt"></i> +880 1700 000 001</span>
+                    <span class="small-call-btn">Call Now</span>
+                </a>
+                <a href="tel:+8801900000002" class="contact-item">
+                    <span class="contact-left"><i class="fas fa-phone-alt"></i> +880 1900 000 002</span>
+                    <span class="small-call-btn">Call Now</span>
+                </a>
+                <a href="mailto:owner1@email.com" class="contact-item">
+                    <span class="contact-left"><i class="fas fa-envelope"></i> owner1@email.com</span>
+                </a>
+                <a href="https://wa.me/8801700000001" target="_blank" class="contact-item">
+                    <span class="contact-left"><i class="fab fa-whatsapp"></i> WhatsApp Direct</span>
+                </a>
+                <a href="#" target="_blank" class="contact-item">
+                    <span class="contact-left"><i class="fab fa-facebook-f"></i> Facebook Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- ================= OWNER 2 INFO PAGE ================= -->
+        <div class="page info-page" id="page-owner-2">
+            <div class="back-header">
+                <button class="back-btn" onclick="closePage('page-owner-2')"><i class="fas fa-arrow-left"></i> Back</button>
+            </div>
+            
+            <div class="full-profile">
+                <img src="https://i.ibb.co.com/KzjwSvmN/avatar.jpg" alt="Owner 2">
+                <h2>দ্বিতীয় মালিকের নাম</h2>
+                <p>Manager</p>
+            </div>
+
+            <div class="contact-list">
+                <a href="tel:+8801800000002" class="contact-item">
+                    <span class="contact-left"><i class="fas fa-mobile-alt"></i> +880 1800 000 002</span>
+                    <span class="small-call-btn">Call Now</span>
+                </a>
+                <a href="mailto:owner2@email.com" class="contact-item">
+                    <span class="contact-left"><i class="fas fa-envelope"></i> owner2@email.com</span>
+                </a>
+                <a href="https://wa.me/8801800000002" target="_blank" class="contact-item">
+                    <span class="contact-left"><i class="fab fa-whatsapp"></i> WhatsApp Direct</span>
+                </a>
+                <!-- LinkedIn পরিবর্তন করে Facebook করা হয়েছে -->
+                <a href="#" target="_blank" class="contact-item">
+                    <span class="contact-left"><i class="fab fa-facebook-f"></i> Facebook Profile</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function openPage(pageId) {
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function closePage(pageId) {
+            document.getElementById(pageId).classList.remove('active');
+        }
+
+        function shareProfile() {
+            const shareUrl = window.location.href.startsWith('file') ? 'https://yourwebsite.com' : window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Company Digital Business Card',
+                    text: 'Here is our digital business card and contact information.',
+                    url: shareUrl 
+                }).then(() => console.log('Shared Successfully'))
+                  .catch(console.error);
+            } else {
+                navigator.clipboard.writeText(shareUrl);
+                alert("Link Copied!");
+            }
+        }
+    </script>
+</body>
+</html>
