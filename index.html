@@ -1,867 +1,1860 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>Elite Digital Persona | Premium Business Card</title>
+
     
+
     <!-- Google Fonts: Poppins & Inter for that tech-luxury feel -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     
+
    <!-- Classic English (Libre Baskerville) + Classic Bangla (Noto Serif Bengali) -->
+
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
+
     <!-- FontAwesome Icons Link (এটি ছাড়া আইকন আসবে না) -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+
         :root {
+
             --bg-dark: #050a15;
+
             --card-bg: rgba(15, 23, 42, 0.65);
+
             --primary-glow: #4facfe;
+
             --secondary-glow: #00f2ff;
+
             --accent-green: #00ffa3;
+
             --text-main: #ffffff;
+
             --text-dim: rgba(255, 255, 255, 0.7);
+
             --glass-border: rgba(255, 255, 255, 0.12);
+
             --transition-speed: 0.5s;
+
             --ease: cubic-bezier(0.23, 1, 0.32, 1);
+
         }
+
+  
 
       * {
+
     box-sizing: border-box;
+
     margin: 0;
+
     padding: 0;
+
     /* Libre Baskerville ইংরেজিকে ক্লাসিক আভিজাত্য দেবে, আর Noto Serif বাংলাকে পিওর রাখবে */
+
     font-family: 'Libre Baskerville', 'Noto Serif Bengali', serif;
+
     -webkit-tap-highlight-color: transparent;
+
 }
+
+
 
 /* ইংরেজি নামটিকে আরও রাজকীয় (Royal) করতে */
+
 .company-name {
+
     font-family: 'Libre Baskerville', serif;
+
     font-weight: 700;
+
     font-style: italic; /* ইতালিক স্টাইলে এই ফন্টটি অসম্ভব সুন্দর দেখায় */
+
     font-size: 26px;
+
     letter-spacing: 0.5px;
+
 }
+
+
 
 /* বাটন এবং ছোট টাইটেলগুলোর জন্য */
+
 .lang-btn, .owner-text p, .btn-call span {
+
     font-family: 'Libre Baskerville', serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
 }
+
+
 
         body {
+
             background-color: var(--bg-dark);
+
             background-image: 
+
                 radial-gradient(circle at 0% 0%, rgba(79, 172, 254, 0.15) 0%, transparent 35%),
+
                 radial-gradient(circle at 100% 100%, rgba(0, 242, 255, 0.1) 0%, transparent 35%);
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
+
             min-height: 100vh;
+
             color: var(--text-main);
+
             overflow: hidden;
+
             perspective: 1000px;
+
         }
+
+
 
         /* --- Animated Aurora Background --- */
+
         .aurora-bg {
+
             position: fixed;
+
             top: 0; left: 0; width: 100%; height: 100%;
+
             z-index: -1;
+
             filter: blur(100px);
+
             opacity: 0.6;
+
             pointer-events: none;
+
         }
+
         .aurora-blob {
+
             position: absolute;
+
             width: 400px; height: 400px;
+
             background: var(--primary-glow);
+
             border-radius: 50%;
+
             animation: move 20s infinite alternate;
+
         }
+
         .aurora-blob:nth-child(2) {
+
             background: var(--secondary-glow);
+
             width: 300px; height: 300px;
+
             animation-duration: 25s;
+
             animation-delay: -5s;
+
         }
+
         @keyframes move {
+
             0% { transform: translate(-10%, -10%); }
+
             100% { transform: translate(110%, 110%); }
+
         }
+
+
 
         /* --- Main Card Container --- */
+
         .card-container {
+
             background: var(--card-bg);
+
             backdrop-filter: blur(30px) saturate(180%);
+
             -webkit-backdrop-filter: blur(30px) saturate(180%);
+
             width: 100%;
+
             max-width: 420px;
+
             height: 92vh;
+
             position: relative;
+
             overflow: hidden;
+
             border-radius: 40px;
+
             border: 1px solid var(--glass-border);
+
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 
+
                         inset 0 0 20px rgba(255, 255, 255, 0.05);
+
             transform-style: preserve-3d;
+
             animation: containerIn 1.2s var(--ease);
+
         }
+
+
 
         @media (max-width: 450px) {
+
             .card-container {
+
                 height: 100vh;
+
                 border-radius: 0;
+
                 border: none;
+
             }
+
         }
+
+
 
         /* --- Page Systems --- */
+
         .page {
+
             width: 100%;
+
             height: 100%;
+
             position: absolute;
+
             top: 0; left: 0;
+
             transition: all var(--transition-speed) var(--ease);
+
             display: flex;
+
             flex-direction: column;
-            padding-bottom: 20px;
+
+            padding-bottom: 4px;
+
         }
+
+
 
         #main-page {
+
             transform: translateZ(0);
+
             z-index: 1;
+
             overflow-y: auto;
+
             overflow-x: hidden;
+
             display: flex;
+
             flex-direction: column;
+
+            height: 100%;
+
+            justify-content: space-between;
+
         }
+
+
 
         .info-page {
+
             transform: translateX(100%) scale(0.9);
+
             opacity: 0;
+
             z-index: 10;
+
             background: rgba(5, 10, 21, 0.95);
+
             backdrop-filter: blur(40px);
+
         }
+
+
 
         .info-page.active {
+
             transform: translateX(0) scale(1);
+
             opacity: 1;
+
         }
+
+
 
         /* --- Hero Section --- */
+
         .top-section {
+
             position: relative;
-            padding-bottom: 30px;
+
+            padding-bottom: 4px;
+
         }
+
+
 
         .cover-photo {
-            height: 180px;
+
+            height: 190px;
+
             background: url('https://i.ibb.co.com/JWD7ZGpL/Screenshot-2026-06-25-03-04-40-54-a23b203fd3aafc6dcb84e438dda678b6.jpg') center/cover;
+
             position: relative;
+
             clip-path: ellipse(150% 100% at 50% 0%);
+
         }
+
+
 
         .cover-photo::after {
+
             content: '';
+
             position: absolute;
+
             inset: 0;
+
             background: linear-gradient(to bottom, transparent, var(--bg-dark));
+
         }
+
+
 
         .company-header {
+
             text-align: center;
-            margin-top: -30px;
-            padding: 0 30px;
+
+            margin-top: -28px;
+
+            padding: 0 18px;
+
             z-index: 2;
+
             position: relative;
+
         }
+
+
 
         .logo-wrapper {
+
             position: relative;
+
             display: inline-block;
-            margin-bottom: 15px;
+
+            margin-bottom: 2px;
+
         }
+
+
 
         .company-logo {
-            width: 90px; height: 90px;
-            border-radius: 25px;
-            margin-top: -10px;
+
+            width: 64px; height: 64px;
+
+            border-radius: 17px;
+
+            margin-top: -16px;
+
             background: #fff;
-            padding: 8px;
+
+            padding: 5px;
+
             object-fit: contain;
+
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+
             border: 1px solid rgba(255,255,255,0.2);
+
             animation: float 6s ease-in-out infinite;
+
         }
+
+
 
         @keyframes float {
+
             0%, 100% { transform: translateY(0) rotate(0); }
+
             50% { transform: translateY(-10px) rotate(2deg); }
+
         }
+
+
 
         .company-name {
-            font-size: 22px;
+
+            font-size: 18px;
+
             font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-top: 5px;
+
+            letter-spacing: -0.3px;
+
+            margin-top: 1px;
+
             background: linear-gradient(to right, #fff, var(--primary-glow));
+
             -webkit-background-clip: text;
+
             -webkit-text-fill-color: transparent;
+
         }
+
+
 
         .company-desc {
-            font-size: 12px;
+
+            font-size: 11px;
+
             color: var(--text-dim);
-            margin-top: 5px;
-            line-height: 1.5;
-            display: block;
-            overflow: visible;
+
+            margin-top: 4px;
+
+            line-height: 1.4;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 3;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+
             text-align: center;
-            padding: 0 10px;
+
+            padding: 0 8px;
+
         }
+
+
 
         /* --- Luxury 3D Owner Cards --- */
+
         .middle-section {
-            padding: 10px 25px;
+
+            padding: 3px 16px;
+
             display: flex;
+
             flex-direction: column;
-            gap: 8px;
+
+            justify-content: center;
+
+            flex: 1;
+
+            gap: 16px;
+
         }
+
+
 
         .owner-card {
+
             background: rgba(255, 255, 255, 0.03);
+
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 10px 15px;
+
+            border-radius: 20px;
+
+            padding: 12px 14px;
+
             position: relative;
+
             overflow: hidden;
+
             transition: all 0.4s var(--ease);
+
             transform-style: preserve-3d;
+
         }
+
+
 
         .owner-card:hover {
+
             background: rgba(255, 255, 255, 0.07);
+
             border-color: var(--primary-glow);
+
             transform: translateY(-8px) rotateX(4deg);
+
             box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+
         }
+
+
 
         .owner-info-row {
+
             display: flex;
+
             align-items: center;
-            gap: 18px;
+
+            gap: 14px;
+
             margin-bottom: 10px;
+
         }
+
+
 
         .owner-img-wrapper {
+
             position: relative;
+
         }
+
+
 
         .owner-img {
-            width: 55px; height: 55px;
-            border-radius: 22px;
+
+            width: 48px; height: 48px;
+
+            border-radius: 16px;
+
             object-fit: cover;
+
             border: 2px solid rgba(255,255,255,0.1);
+
             transition: transform 0.5s var(--ease);
+
         }
+
+
 
         .owner-card:hover .owner-img {
+
             transform: scale(1.1) rotate(-5deg);
+
             border-color: var(--primary-glow);
+
         }
+
+
 
         .owner-text h3 {
-            font-size: 17px;
+
+            font-size: 16px;
+
             font-weight: 700;
+
             color: #fff;
+
         }
+
+
 
         .owner-text p {
-            font-size: 14px;
+
+            font-size: 12px;
+
             color: var(--primary-glow);
+
             font-weight: 600;
+
             text-transform: uppercase;
-            letter-spacing: 1px;
+
+            letter-spacing: 0.5px;
+
         }
+
+
 
         /* --- Premium Buttons --- */
+
         .action-row {
+
             display: flex;
-            gap: 12px;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
         }
+
+
 
         .btn-call {
+
             flex: 1.5;
+
             background: linear-gradient(135deg, #00f2ff, #4facfe);
+
             color: #000;
-            padding: 14px;
-            border-radius: 16px;
+
+            padding: 11px 8px;
+
+            border-radius: 12px;
+
             font-weight: 700;
+
+            font-size: 13px;
+
             text-decoration: none;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+
+            gap: 7px;
+
+            box-shadow: 0 8px 16px rgba(79, 172, 254, 0.3);
+
             transition: 0.3s;
+
         }
+
+
 
         .btn-call:hover {
+
             transform: scale(1.03);
+
             box-shadow: 0 15px 30px rgba(79, 172, 254, 0.5);
+
         }
+
+
 
         .btn-info {
+
             flex: 1;
+
             background: rgba(255,255,255,0.08);
+
             border: 1px solid var(--glass-border);
+
             color: #fff;
-            padding: 14px;
-            border-radius: 16px;
+
+            padding: 11px 8px;
+
+            border-radius: 12px;
+
             font-weight: 600;
+
+            font-size: 13px;
+
             cursor: pointer;
+
             transition: 0.3s;
+
         }
+
+
 
         .btn-info:hover {
+
             background: rgba(255,255,255,0.15);
+
         }
+
+
 
         /* --- Location & Share --- */
+
         .location-container {
-            padding: 0 25px 5px;
+
+            padding: 0 16px 8px;
+
         }
+
+
 
         .btn-location {
+
             width: 100%;
+
             background: rgba(255,255,255,0.03);
+
             border: 1px solid var(--glass-border);
-            padding: 10px;
-            border-radius: 15px;
+
+            padding: 12px;
+
+            border-radius: 14px;
+
             color: #fff;
+
             text-decoration: none;
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
-            gap: 12px;
+
+            gap: 10px;
+
             font-weight: 500;
+
             font-size: 13px;
+
             transition: 0.3s;
+
         }
+
+
 
         .btn-location:hover {
+
             border-color: #ff4b2b;
+
             background: rgba(255, 75, 43, 0.05);
+
         }
 
-        .btn-location i { color: #ff4b2b; font-size: 20px; }
+
+
+        .btn-location i { color: #ff4b2b; font-size: 17px; }
+
+
 
         .bottom-section {
-            padding: 0 25px 15px;
+
+            padding: 0 16px 16px;
+
         }
+
+
 
         .btn-share {
+
             width: 100%;
+
             background: #fff;
+
             color: #000;
-            padding: 10px;
-            border-radius: 15px;
+
+            padding: 13px;
+
+            border-radius: 14px;
+
             font-weight: 700;
+
             font-size: 13px;
+
             border: none;
+
             cursor: pointer;
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
-            gap: 10px;
+
+            gap: 8px;
+
             transition: 0.4s var(--ease);
+
         }
+
+
 
         .btn-share:hover {
+
             transform: translateY(-5px);
+
             box-shadow: 0 20px 40px rgba(255,255,255,0.2);
+
         }
+
+
 
         /* --- Profile Pages Styling --- */
+
         .back-header {
+
             padding: 30px 25px 10px;
+
             display: flex;
+
             align-items: center;
+
         }
+
+
 
         .back-btn {
+
             background: rgba(255,255,255,0.05);
+
             border: 1px solid var(--glass-border);
+
             color: #fff;
+
             padding: 10px 20px;
+
             border-radius: 14px;
+
             cursor: pointer;
+
             display: flex;
+
             align-items: center;
+
             gap: 8px;
+
         }
+
+
 
         .full-profile {
+
             text-align: center;
+
             padding: 20px 0;
+
         }
+
+
 
         .full-profile img {
+
     width: 170px; 
+
     height: 240px;
+
     border-radius: 40px;
+
     border: 3px solid var(--primary-glow);
+
     margin-bottom: 20px;
+
     box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+
     
+
     /* নিচের এই ২ লাইন যোগ করুন */
+
     object-fit: cover; /* এটি ছবিকে চেপ্টা হতে দেবে না, সুন্দরভাবে সেট করবে */
+
     object-position: center; /* মুখ মাঝখানে রাখবে */
+
 }
+
+
 
         .contact-list {
+
             padding: 20px 25px;
+
             display: flex;
+
             flex-direction: column;
+
             gap: 14px;
+
         }
+
+
 
         .contact-item {
+
             background: rgba(255,255,255,0.03);
+
             border: 1px solid var(--glass-border);
+
             padding: 18px;
+
             border-radius: 20px;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             text-decoration: none;
+
             color: #fff;
+
             transition: 0.3s;
+
         }
+
+
 
         .contact-item:hover {
+
             background: rgba(255,255,255,0.08);
+
             transform: translateX(5px);
+
             border-color: var(--primary-glow);
+
         }
+
+
 
         .contact-left { display: flex; align-items: center; gap: 15px; }
+
         .contact-left i { color: var(--primary-glow); font-size: 22px; width: 25px; text-align: center;}
 
+
+
         .small-call-btn {
+
             background: var(--accent-green);
+
             color: #000;
+
             padding: 6px 14px;
+
             border-radius: 12px;
+
             font-size: 12px;
+
             font-weight: 700;
+
         }
+
+
 
         /* Animations */
+
         @keyframes containerIn {
+
             from { opacity: 0; transform: translateY(40px) rotateX(10deg); }
+
             to { opacity: 1; transform: translateY(0) rotateX(0); }
+
         }
 
+
+
         /* Custom Scrollbar */
+
         #main-page::-webkit-scrollbar { width: 4px; }
+
         #main-page::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
         /* Language Switcher Style */
+
 .lang-switch-container {
+
     position: absolute;
-    top: 20px;
-    right: 20px;
+
+    top: 8px;
+
+    right: 8px;
+
     z-index: 999;
+
 }
+
 .lang-btn {
+
     background: rgba(255, 255, 255, 0.15);
+
     backdrop-filter: blur(10px);
+
     border: 1px solid rgba(255, 255, 255, 0.2);
+
     color: white;
-    padding: 8px 15px;
-    border-radius: 12px;
+
+    padding: 5px 10px;
+
+    border-radius: 10px;
+
     cursor: pointer;
+
     font-weight: 600;
-    font-size: 14px;
+
+    font-size: 11px;
+
     transition: 0.3s;
+
 }
+
 .lang-btn:hover {
+
     background: var(--primary-glow);
+
     color: black;
+
 }
+
 /* Modal CSS */
+
 .modal {
+
     display: none; /* শুরুতে লুকানো থাকবে */
+
     position: fixed;
+
     inset: 0;
+
     background: rgba(0, 0, 0, 0.8);
+
     backdrop-filter: blur(10px);
+
     z-index: 2000;
+
     justify-content: center;
+
     align-items: center;
+
 }
+
 .modal-content {
+
     background: rgba(15, 23, 42, 0.95);
+
     border: 1px solid rgba(255, 255, 255, 0.1);
+
     padding: 30px;
+
     border-radius: 30px;
+
     width: 90%;
+
     max-width: 320px;
+
     text-align: center;
+
     position: relative;
+
 }
+
 .close-modal {
+
     position: absolute;
+
     top: 15px;
+
     right: 20px;
+
     font-size: 24px;
+
     cursor: pointer;
+
     color: white;
+
 }
+
 .qr-img {
+
     width: 200px;
+
     height: 200px; /* এখানে উচ্চতা প্রস্থের চেয়ে একটু কম দিন */
+
     object-fit: cover; /* এটি ছবির বাড়তি অংশ কেটে ফেলবে */
+
     object-position: top; /* এটি ছবিটিকে উপরে আটকে রাখবে যাতে নিচের ফাঁকা অংশ দেখা না যায় */
+
     border-radius: 20px;
+
     border: 5px solid #fff;
+
     display: block;
+
     margin: 15px auto;
+
     background: #fff;
+
 }
+
 .btn-copy {
+
     background: #4facfe;
+
     color: black;
+
     border: none;
+
     padding: 12px;
+
     border-radius: 12px;
+
     width: 100%;
+
     font-weight: bold;
+
     cursor: pointer;
+
 }
+
+/* নতুন অ্যাড্রেস ও সোশ্যাল আইকন স্টাইল */
+
+.company-info-box {
+
+    margin: 8px 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
+
+
+.address-text {
+
+    font-size: 11px;
+
+    color: var(--text-dim);
+
+    line-height: 1.35;
+
+    max-width: 300px;
+
+    margin: 0 auto;
+
+}
+
+
+
+.address-text i {
+
+    color: #ff4b2b;
+
+    margin-right: 5px;
+
+}
+
+
+
+.top-social-icons {
+
+    display: flex;
+
+    gap: 16px;
+
+    margin-top: 3px;
+
+}
+
+
+
+.top-social-icons a {
+
+    color: var(--primary-glow);
+
+    font-size: 17px;
+
+    transition: 0.3s ease;
+
+    text-decoration: none;
+
+}
+
+
+
+.top-social-icons a:hover {
+
+    color: #fff;
+
+    transform: translateY(-3px);
+
+    text-shadow: 0 0 10px var(--primary-glow);
+
+}
+
 
 
     </style>
+
 </head>
+
 <body>
+
     <!-- Language Switch Button -->
+
     <div class="lang-switch-container">
+
         <button class="lang-btn" id="lang-btn" onclick="toggleLanguage()">English</button>
+
     </div>
+
+
 
     <div class="aurora-bg">
+
         <div class="aurora-blob"></div>
+
         <div class="aurora-blob"></div>
+
     </div>
+
+
 
     <div class="card-container">
+
         
+
         <!-- ================= MAIN PAGE ================= -->
+
         <div class="page" id="main-page">
+
             
+
             <div class="top-section">
+
                 <div class="cover-photo"></div>
+
                 <div class="company-header">
+
                     <div class="logo-wrapper">
+
                         <img src="https://i.ibb.co.com/mrcRFw1c/IMG-20260718-232056.jpg" alt="Logo" class="company-logo">
+
                     </div>
+
                     <h1 class="company-name t" data-en="NOOR  TELECOM  PLUS" data-bn="নূর টেলিকম প্লাস">নূর টেলিকম প্লাস</h1>
-                    <p class="company-desc t" data-en="Through trust, integrity, and exceptional service, we have been providing our customers with the best telecom and mobile accessories solutions. Your trust is the foundation of our success." data-bn="বিশ্বাস, সততা ও উন্নত সেবার মাধ্যমে আমরা গ্রাহকদের সর্বোত্তম টেলিকম ও মোবাইল অ্যাক্সেসরিজ সমাধান প্রদান করে আসছি। আপনার আস্থা আমাদের সাফল্যের ভিত্তি।">বিশ্বাস, সততা ও উন্নত সেবার মাধ্যমে আমরা গ্রাহকদের সর্বোত্তম টেলিকম ও মোবাইল অ্যাক্সেসরিজ সমাধান প্রদান করে আসছি। আপনার আস্থা আমাদের সাফল্যের ভিত্তি।</p>
-                </div>
-            </div>
 
-            <div class="middle-section">
-                
-                <!-- Owner 1 -->
-                <div class="owner-card">
-                    <div class="owner-info-row">
-                        <div class="owner-img-wrapper">
-                            <img src="https://i.ibb.co.com/tpJ2sJmr/1785087884977.jpg" alt="Owner 1" class="owner-img">
-                        </div>
-                        <div class="owner-text">
-                            <h3 class="t" data-en="Md. Sumon Ahmmed" data-bn="মোঃ সুমন আহমেদ">মোঃ সুমন আহমেদ</h3>
-                            <p class="t" data-en="Founder & CEO" data-bn="প্রতিষ্ঠাতা ও সিইও">প্রতিষ্ঠাতা ও সিইও</p>
-                        </div>
-                    </div>
-                    <div class="action-row">
-                        <a href="tel:+8801723530309" class="btn-call">
-                            <i class="fas fa-phone-alt"></i> 
-                            <span class="t" data-en="Call Now" data-bn="কল করুন">কল করুন</span>
-                        </a>
-                        <button class="btn-info" onclick="openPage('page-owner-1')">
-    <i class="fas fa-info-circle"></i> 
-    <span class="t" data-en="Details" data-bn="বিস্তারিত">বিস্তারিত</span>
-</button>
-                    </div>
-                </div>
+                    
 
-                <!-- Owner 2 -->
-                <div class="owner-card">
-                    <div class="owner-info-row">
-                        <div class="owner-img-wrapper">
-                            <img src="https://i.ibb.co.com/3mDymr0x/IMG-20260727-022950.jpg" alt="Owner 2" class="owner-img">
-                        </div>
-                        <div class="owner-text">
-                            <h3 class="t" data-en="Md. Piyash Hasan" data-bn="মোঃ পিয়াস হাসান">মোঃ পিয়াস হাসান</h3>
-                            <p class="t" data-en="Manager" data-bn="ম্যানেজার">ম্যানেজার</p>
-                        </div>
-                    </div>
-                    <div class="action-row">
-                        <a href="tel:+8801325428923" class="btn-call">
-                            <i class="fas fa-phone-alt"></i> <!-- আইকনটি এখানে আলাদা থাকবে -->
-    <span class="t" data-en="Call Now" data-bn="কল করুন">কল করুন</span>
-</a>
-                        <button class="btn-info" onclick="openPage('page-owner-2')">
-    <i class="fas fa-info-circle"></i> 
-    <span class="t" data-en="Details" data-bn="বিস্তারিত">বিস্তারিত</span>
-</button>
-<!-- পিয়াস হাসানের Details বাটনের নিচে এটি বসান -->
-<button class="btn-info" onclick="openAboutModal()" style="flex: 1; background: rgba(79, 172, 254, 0.15); border: 1px solid var(--primary-glow);">
-    <i class="fas fa-user-astronaut"></i> 
-    <span class="t" data-en="About Me" data-bn="আমার সম্পর্কে">আমার সম্পর্কে</span>
-</button>
-                    </div>
-                </div>
 
-            </div>
 
-            <div class="location-container">
-                <a href="https://maps.app.goo.gl/emuMSx7FPn7BsrKz6?g_st=ac" target="_blank" class="btn-location">
-    <i class="fas fa-location-dot"></i> <!-- আইকনটি এখানে থাকবে -->
-    <span class="t" data-en="Find Our Headquarters" data-bn="আমাদের অফিসের ঠিকানা">আমাদের অফিসের ঠিকানা</span>
-</a>
-            </div>
-
-            <div class="bottom-section">
-                <button class="btn-share" onclick="shareProfile()">
-    <i class="fas fa-share-nodes"></i> <!-- আইকনটি এখানে থাকবে -->
-    <span class="t" data-en="Share Digital Card" data-bn="ডিজিটাল কার্ড শেয়ার করুন">ডিজিটাল কার্ড শেয়ার করুন</span>
-</button>
-            </div>
-        </div>
-
-        <!-- ================= OWNER 1 INFO PAGE ================= -->
-        <div class="page info-page" id="page-owner-1">
-            <div class="back-header">
-                <button class="back-btn" onclick="closePage('page-owner-1')">
-    <i class="fas fa-chevron-left"></i> 
-    <span class="t" data-en="Back" data-bn="পেছনে">পেছনে</span>
-</button>
-            </div>
-            
-            <div class="full-profile">
-                <img src="https://i.ibb.co.com/tpJ2sJmr/1785087884977.jpg" alt="Owner 1">
-                <h2 class="t" data-en="Md. Sumon Ahmmed" data-bn="মোঃ সুমন আহমেদ">মোঃ সুমন আহমেদ</h2>
-                <p class="t" data-en="Founder & CEO" data-bn="প্রতিষ্ঠাতা ও সিইও">প্রতিষ্ঠাতা ও সিইও</p>
-            </div>
-
-            <div class="contact-list">
-                <a href="tel:+8801723530309" class="contact-item">
-                    <span class="contact-left"><i class="fas fa-mobile-screen-button"></i> +880 1723 530 309</span>
-                    <span class="small-call-btn t" data-en="Call" data-bn="কল">কল</span>
-                </a>
-                <a href="tel:+8801568291068" class="contact-item">
-                    <span class="contact-left"><i class="fas fa-phone-flip"></i> +880 1568 291 068</span>
-                    <span class="small-call-btn t" data-en="Call" data-bn="কল">কল</span>
-                </a>
-                <a href="https://wa.me/8801723530309" target="_blank" class="contact-item">
-                    <span class="contact-left"><i class="fab fa-whatsapp"></i> <span class="t" data-en="WhatsApp Chat" data-bn="হোয়াটসঅ্যাপ চ্যাট">হোয়াটসঅ্যাপ চ্যাট</span></span>
-                </a>
-                <a href="https://m.me/obak.sumon.35" target="_blank" class="contact-item">
-                    <span class="contact-left"><i class="fab fa-facebook-messenger"></i> <span class="t" data-en="Facebook Profile" data-bn="ফেসবুক প্রোফাইল">ফেসবুক প্রোফাইল</span></span>
-                </a>
-            </div>
-        </div>
-
-        <!-- ================= OWNER 2 INFO PAGE ================= -->
-        <div class="page info-page" id="page-owner-2">
-            <div class="back-header">
-                <button class="back-btn" onclick="closePage('page-owner-2')">
-    <i class="fas fa-chevron-left"></i> 
-    <span class="t" data-en="BACK" data-bn="পেছনে">পেছনে</span>
-</button>
-            </div>
-            
-            <div class="full-profile">
-                <img src="https://i.ibb.co.com/3mDymr0x/IMG-20260727-022950.jpg" alt="Owner 2">
-                <h2 class="t" data-en="Md. Piyash Hasan" data-bn="মোঃ পিয়াস হাসান">মোঃ পিয়াস হাসান</h2>
-                <p class="t" data-en="Operations Manager" data-bn="অপারেশন ম্যানেজার">অপারেশন ম্যানেজার</p>
-            </div>
-
-            <div class="contact-list">
-                <a href="tel:+8801325428923" class="contact-item">
-                    <span class="contact-left"><i class="fas fa-mobile-screen-button"></i> +880 1325 428 923</span>
-                    <span class="small-call-btn t" data-en="CALL" data-bn="কল">কল</span>
-                </a>
-                <a href="tel:+8801811940182" class="contact-item">
-                    <span class="contact-left"><i class="fas fa-phone-flip"></i> +880 1811 940 182</span>
-                    <span class="small-call-btn t" data-en="CALL" data-bn="কল">কল</span>
-                </a>
-                <a href="https://wa.me/8801325428923" target="_blank" class="contact-item">
-                    <span class="contact-left"><i class="fab fa-whatsapp"></i> <span class="t" data-en="WhatsApp Chat" data-bn="হোয়াটসঅ্যাপ চ্যাট">হোয়াটসঅ্যাপ চ্যাট</span></span>
-                </a>
-                <a href="https://m.me/piyashhasan.ph" target="_blank" class="contact-item">
-                    <span class="contact-left"><i class="fab fa-facebook-messenger"></i> <span class="t" data-en="Messenger Chat" data-bn="মেসেঞ্জার চ্যাট">মেসেঞ্জার চ্যাট</span></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-<!-- Share Modal (এই অংশটি না থাকলে বাটন কাজ করবে না) -->
-<div id="shareModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h3 class="t" data-en="Scan QR Code" data-bn="QR কোড স্ক্যান করুন">QR কোড স্ক্যান করুন</h3>
-        <img src="https://i.ibb.co.com/mrgJsYkz/July12-070243-PM.png" alt="QR Code" class="qr-img">
-        <p class="t" style="font-size: 13px; margin-bottom: 10px;" data-en="Or share the link below" data-bn="অথবা নিচের লিঙ্কটি শেয়ার করুন">অথবা নিচের লিঙ্কটি শেয়ার করুন</p>
-        <button class="btn-copy" onclick="copyWebLink()">
-            <i class="fas fa-copy"></i>
-            <span class="t" data-en="Copy Link" data-bn="লিঙ্ক কপি করুন">লিঙ্ক কপি করুন</span>
-        </button>
+<!-- নতুন অ্যাড্রেস ও সোশ্যাল বক্স শুরু -->
+<div class="company-info-box">
+    <p class="address-text">
+       <!-- আইকনটিকে .t ক্লাসের বাইরে রাখা হয়েছে যাতে এটি মুছে না যায় -->
+       <i class="fas fa-map-marker-alt"></i> 
+       <span class="t" 
+             data-en="N.U Pilot High School Super Market (1st Lane), Shop No. 2, Dhunat Bazar, Dhunat, Bogura" 
+             data-bn="এন.ইউ পাইলট হাই স্কুল সুপার মার্কেট (১ম গলি), দোকান নং-২, ধুনট বাজার, ধুনট, বগুড়া">
+             এন.ইউ পাইলট হাই স্কুল সুপার মার্কেট (১ম গলি), দোকান নং-২, ধুনট বাজার, ধুনট, বগুড়া
+       </span>
+    </p>
+    
+    <div class="top-social-icons">
+        <a href="https://www.facebook.com/share/noortelecomplus/" target="_blank" title="Facebook">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://wa.me/8801325428923" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="mailto:noortelecomplus@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
     </div>
 </div>
+
+
+
+                    <p class="company-desc t" data-en="Through trust, integrity, and exceptional service, we have been providing our customers with the best telecom and mobile accessories solutions. Your trust is the foundation of our success." data-bn="বিশ্বাস, সততা ও উন্নত সেবার মাধ্যমে আমরা গ্রাহকদের সর্বোত্তম টেলিকম ও মোবাইল অ্যাক্সেসরিজ সমাধান প্রদান করে আসছি। আপনার আস্থা আমাদের সাফল্যের ভিত্তি।">বিশ্বাস, সততা ও উন্নত সেবার মাধ্যমে আমরা গ্রাহকদের সর্বোত্তম টেলিকম ও মোবাইল অ্যাক্সেসরিজ সমাধান প্রদান করে আসছি। আপনার আস্থা আমাদের সাফল্যের ভিত্তি।</p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="middle-section">
+
+                
+
+                <!-- Owner 1 -->
+
+                <div class="owner-card">
+
+                    <div class="owner-info-row">
+
+                        <div class="owner-img-wrapper">
+
+                            <img src="https://i.ibb.co.com/tpJ2sJmr/1785087884977.jpg" alt="Owner 1" class="owner-img">
+
+                        </div>
+
+                        <div class="owner-text">
+
+                            <h3 class="t" data-en="Md. Sumon Ahmmed" data-bn="মোঃ সুমন আহমেদ">মোঃ সুমন আহমেদ</h3>
+
+                            <p class="t" data-en="Founder & CEO" data-bn="প্রতিষ্ঠাতা ও সিইও">প্রতিষ্ঠাতা ও সিইও</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="action-row">
+
+                        <a href="tel:+8801723530309" class="btn-call">
+
+                            <i class="fas fa-phone-alt"></i> 
+
+                            <span class="t" data-en="Call Now" data-bn="কল করুন">কল করুন</span>
+
+                        </a>
+
+                        <button class="btn-info" onclick="openPage('page-owner-1')">
+
+    <i class="fas fa-info-circle"></i> 
+
+    <span class="t" data-en="Details" data-bn="বিস্তারিত">বিস্তারিত</span>
+
+</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Owner 2 -->
+
+                <div class="owner-card">
+
+                    <div class="owner-info-row">
+
+                        <div class="owner-img-wrapper">
+
+                            <img src="https://i.ibb.co.com/3mDymr0x/IMG-20260727-022950.jpg" alt="Owner 2" class="owner-img">
+
+                        </div>
+
+                        <div class="owner-text">
+
+                            <h3 class="t" data-en="Md. Piyash Hasan" data-bn="মোঃ পিয়াস হাসান">মোঃ পিয়াস হাসান</h3>
+
+                            <p class="t" data-en="Manager" data-bn="ম্যানেজার">ম্যানেজার</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="action-row">
+
+                        <a href="tel:+8801325428923" class="btn-call">
+
+                            <i class="fas fa-phone-alt"></i> <!-- আইকনটি এখানে আলাদা থাকবে -->
+
+    <span class="t" data-en="Call Now" data-bn="কল করুন">কল করুন</span>
+
+</a>
+
+                        <button class="btn-info" onclick="openPage('page-owner-2')">
+
+    <i class="fas fa-info-circle"></i> 
+
+    <span class="t" data-en="Details" data-bn="বিস্তারিত">বিস্তারিত</span>
+
+</button>
+
+<!-- পিয়াস হাসানের Details বাটনের নিচে এটি বসান -->
+
+<button class="btn-info" onclick="openAboutModal()" style="flex: 1; background: rgba(79, 172, 254, 0.15); border: 1px solid var(--primary-glow);">
+
+    <i class="fas fa-user-astronaut"></i> 
+
+    <span class="t" data-en="About Me" data-bn="আমার সম্পর্কে">আমার সম্পর্কে</span>
+
+</button>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="location-container">
+
+                <a href="https://maps.app.goo.gl/emuMSx7FPn7BsrKz6?g_st=ac" target="_blank" class="btn-location">
+
+    <i class="fas fa-location-dot"></i> <!-- আইকনটি এখানে থাকবে -->
+
+    <span class="t" data-en="Our store address" data-bn="আমাদের দোকানের ঠিকানা">আমাদের দোকানের ঠিকানা</span>
+
+</a>
+
+            </div>
+
+
+
+            <div class="bottom-section">
+
+                <button class="btn-share" onclick="shareProfile()">
+
+    <i class="fas fa-share-nodes"></i> <!-- আইকনটি এখানে থাকবে -->
+
+    <span class="t" data-en="Share Digital Card" data-bn="ডিজিটাল কার্ড শেয়ার করুন">ডিজিটাল কার্ড শেয়ার করুন</span>
+
+</button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= OWNER 1 INFO PAGE ================= -->
+
+        <div class="page info-page" id="page-owner-1">
+
+            <div class="back-header">
+
+                <button class="back-btn" onclick="closePage('page-owner-1')">
+
+    <i class="fas fa-chevron-left"></i> 
+
+    <span class="t" data-en="Back" data-bn="পেছনে">পেছনে</span>
+
+</button>
+
+            </div>
+
+            
+
+            <div class="full-profile">
+
+                <img src="https://i.ibb.co.com/tpJ2sJmr/1785087884977.jpg" alt="Owner 1">
+
+                <h2 class="t" data-en="Md. Sumon Ahmmed" data-bn="মোঃ সুমন আহমেদ">মোঃ সুমন আহমেদ</h2>
+
+                <p class="t" data-en="Founder & CEO" data-bn="প্রতিষ্ঠাতা ও সিইও">প্রতিষ্ঠাতা ও সিইও</p>
+
+            </div>
+
+
+
+            <div class="contact-list">
+
+                <a href="tel:+8801723530309" class="contact-item">
+
+                    <span class="contact-left"><i class="fas fa-mobile-screen-button"></i> +880 1723 530 309</span>
+
+                    <span class="small-call-btn t" data-en="Call" data-bn="কল">কল</span>
+
+                </a>
+
+                <a href="tel:+8801568291068" class="contact-item">
+
+                    <span class="contact-left"><i class="fas fa-phone-flip"></i> +880 1568 291 068</span>
+
+                    <span class="small-call-btn t" data-en="Call" data-bn="কল">কল</span>
+
+                </a>
+
+                <a href="https://wa.me/8801723530309" target="_blank" class="contact-item">
+
+                    <span class="contact-left"><i class="fab fa-whatsapp"></i> <span class="t" data-en="WhatsApp Chat" data-bn="হোয়াটসঅ্যাপ চ্যাট">হোয়াটসঅ্যাপ চ্যাট</span></span>
+
+                </a>
+
+                <a href="https://m.me/obak.sumon.35" target="_blank" class="contact-item">
+
+                    <span class="contact-left"><i class="fab fa-facebook-messenger"></i> <span class="t" data-en="Facebook Profile" data-bn="ফেসবুক প্রোফাইল">ফেসবুক প্রোফাইল</span></span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= OWNER 2 INFO PAGE ================= -->
+
+        <div class="page info-page" id="page-owner-2">
+
+            <div class="back-header">
+
+                <button class="back-btn" onclick="closePage('page-owner-2')">
+
+    <i class="fas fa-chevron-left"></i> 
+
+    <span class="t" data-en="BACK" data-bn="পেছনে">পেছনে</span>
+
+</button>
+
+            </div>
+
+            
+
+            <div class="full-profile">
+
+                <img src="https://i.ibb.co.com/3mDymr0x/IMG-20260727-022950.jpg" alt="Owner 2">
+
+                <h2 class="t" data-en="Md. Piyash Hasan" data-bn="মোঃ পিয়াস হাসান">মোঃ পিয়াস হাসান</h2>
+
+                <p class="t" data-en="Operations Manager" data-bn="অপারেশন ম্যানেজার">অপারেশন ম্যানেজার</p>
+
+            </div>
+
+
+
+            <div class="contact-list">
+
+                <a href="tel:+8801325428923" class="contact-item">
+
+                    <span class="contact-left"><i class="fas fa-mobile-screen-button"></i> +880 1325 428 923</span>
+
+                    <span class="small-call-btn t" data-en="CALL" data-bn="কল">কল</span>
+
+                </a>
+
+                <a href="tel:+8801811940182" class="contact-item">
+
+                    <span class="contact-left"><i class="fas fa-phone-flip"></i> +880 1811 940 182</span>
+
+                    <span class="small-call-btn t" data-en="CALL" data-bn="কল">কল</span>
+
+                </a>
+
+                <a href="https://wa.me/8801325428923" target="_blank" class="contact-item">
+
+                    <span class="contact-left"><i class="fab fa-whatsapp"></i> <span class="t" data-en="WhatsApp Chat" data-bn="হোয়াটসঅ্যাপ চ্যাট">হোয়াটসঅ্যাপ চ্যাট</span></span>
+
+                </a>
+
+                <a href="https://m.me/piyashhasan.ph" target="_blank" class="contact-item">
+
+                    <span class="contact-left"><i class="fab fa-facebook-messenger"></i> <span class="t" data-en="Messenger Chat" data-bn="মেসেঞ্জার চ্যাট">মেসেঞ্জার চ্যাট</span></span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+<!-- Share Modal (এই অংশটি না থাকলে বাটন কাজ করবে না) -->
+
+<div id="shareModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+
+        <h3 class="t" data-en="Scan QR Code" data-bn="QR কোড স্ক্যান করুন">QR কোড স্ক্যান করুন</h3>
+
+        <img src="https://i.ibb.co.com/mrgJsYkz/July12-070243-PM.png" alt="QR Code" class="qr-img">
+
+        <p class="t" style="font-size: 13px; margin-bottom: 10px;" data-en="Or share the link below" data-bn="অথবা নিচের লিঙ্কটি শেয়ার করুন">অথবা নিচের লিঙ্কটি শেয়ার করুন</p>
+
+        <button class="btn-copy" onclick="copyWebLink()">
+
+            <i class="fas fa-copy"></i>
+
+            <span class="t" data-en="Copy Link" data-bn="লিঙ্ক কপি করুন">লিঙ্ক কপি করুন</span>
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
 
 
 <!-- About Me Modal -->
+
 <div id="aboutModal" class="modal">
+
     <div class="modal-content" style="max-width: 380px; text-align: left; padding: 25px; border: 1px solid var(--primary-glow);">
+
         <span class="close-modal" onclick="closeAboutModal()">&times;</span>
+
         
+
         <div style="text-align: center; margin-bottom: 20px;">
+
             <p class="t" data-en="Hi, I'm" data-bn="হ্যালো, আমি" style="color: var(--primary-glow); font-size: 14px; font-weight: 600;">হ্যালো, আমি</p>
+
             <h2 class="t" data-en="♛ MD. PIYASH HASAN ♛" data-bn="♛ মোঃ পিয়াস হাসান ♛" style="font-family: 'Libre Baskerville', serif; font-size: 20px; margin: 5px 0; background: linear-gradient(to right, #fff, var(--primary-glow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">♛ মোঃ পিয়াস হাসান ♛</h2>
+
             <p class="t" data-en="AI-Powered Web Developer • Digital Innovator • Entrepreneur" data-bn="AI-Powered Web Developer • Digital Innovator • Entrepreneur" style="font-size: 11px; color: var(--accent-green); letter-spacing: 0.5px;">AI-Powered Web Developer • Digital Innovator • Entrepreneur</p>
+
         </div>
+
+
 
         <div style="font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 20px;">
+
             <p class="t" 
+
                data-en="I specialize in creating premium websites, modern web applications, and intelligent digital solutions by combining Artificial Intelligence with advanced web technologies. My goal is to transform ideas into powerful, user-friendly, and future-ready digital experiences that help businesses grow and succeed in the digital world." 
+
                data-bn="কৃত্রিম বুদ্ধিমত্তা (AI) এবং আধুনিক ওয়েব প্রযুক্তির সমন্বয়ে প্রিমিয়াম ওয়েবসাইট, আধুনিক ওয়েব অ্যাপ্লিকেশন এবং স্মার্ট ডিজিটাল সলিউশন তৈরি করতে আমি বিশেষজ্ঞ। আমার লক্ষ্য হলো নতুন ধারণাগুলোকে শক্তিশালী, ব্যবহারবান্ধব এবং ভবিষ্যৎ-উপযোগী ডিজিটাল অভিজ্ঞতায় রূপান্তর করা, যা ব্যক্তি ও ব্যবসাকে ডিজিটাল জগতে আরও সফল হতে সাহায্য করে।">
+
                কৃত্রিম বুদ্ধিমত্তা (AI) এবং আধুনিক ওয়েব প্রযুক্তির সমন্বয়ে প্রিমিয়াম ওয়েবসাইট, আধুনিক ওয়েব অ্যাপ্লিকেশন এবং স্মার্ট ডিজিটাল সলিউশন তৈরি করতে আমি বিশেষজ্ঞ। আমার লক্ষ্য হলো নতুন ধারণাগুলোকে শক্তিশালী, ব্যবহারবান্ধব এবং ভবিষ্যৎ-উপযোগী ডিজিটাল অভিজ্ঞতায় রূপান্তর করা, যা ব্যক্তি ও ব্যবসাকে ডিজিটাল জগতে আরও সফল হতে সাহায্য করে।
+
             </p>
+
         </div>
 
+
+
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; color: var(--primary-glow);">
+
             <div>◆ <span class="t" data-en="Innovation" data-bn="উদ্ভাবন">উদ্ভাবন</span></div>
+
             <div>◆ <span class="t" data-en="Excellence" data-bn="উৎকর্ষতা">উৎকর্ষতা</span></div>
+
             <div>◆ <span class="t" data-en="Professionalism" data-bn="পেশাদারিত্ব">পেশাদারিত্ব</span></div>
+
             <div>◆ <span class="t" data-en="Future-Ready" data-bn="ভবিষ্যৎ-প্রস্তুত">ভবিষ্যৎ-প্রস্তুত</span></div>
+
         </div>
+
     </div>
+
 </div>
+
+
+
+
+
 
 
 
 
     <!-- Enhanced Scripting while keeping original logic -->
+
     <script>
+
     // ১. গ্লোবাল ল্যাঙ্গুয়েজ স্টেট (ডিফল্ট বাংলা)
+
     let currentLang = 'bn';
 
+
+
     // ২. পেজ ওপেন/ক্লোজ ফাংশন
+
     function openPage(pageId) {
+
         const page = document.getElementById(pageId);
+
         page.classList.add('active');
+
         if (window.navigator.vibrate) window.navigator.vibrate(10);
+
     }
+
+
 
     function closePage(pageId) {
+
         document.getElementById(pageId).classList.remove('active');
+
     }
+
+
 
     // ৩. ল্যাঙ্গুয়েজ সুইচ ফাংশন
+
     function toggleLanguage() {
+
         currentLang = (currentLang === 'bn') ? 'en' : 'bn';
+
         
+
         // সুইচ বাটনের টেক্সট পরিবর্তন
+
         document.getElementById('lang-btn').innerText = (currentLang === 'bn') ? 'English' : 'বাংলা';
+
         
+
         // সব টেক্সট আপডেট (যাদের ক্লাস .t আছে)
+
         document.querySelectorAll('.t').forEach(el => {
+
             const translatedText = el.getAttribute('data-' + currentLang);
+
             if (translatedText) el.innerText = translatedText;
+
         });
+
     }
+
+
 
     // ৪. শেয়ার পপআপ (QR Modal) ফাংশন
+
     function shareProfile() {
+
     var modal = document.getElementById('shareModal');
+
     if(modal) {
+
         modal.style.display = 'flex'; // পপআপটি দেখাবে
+
     } else {
+
         console.error("shareModal element not found!");
+
     }
+
 }
+
+
 
 function closeModal() {
+
     document.getElementById('shareModal').style.display = 'none';
+
 }
+
+
 
     // ৫. লিঙ্ক কপি ফাংশন (পপআপের ভেতর থেকে)
+
     function copyWebLink() {
+
         const webLink = "https://noor-telecom-plus.pages.dev/";
+
         navigator.clipboard.writeText(webLink).then(() => {
+
             const msg = (currentLang === 'bn') ? "লিঙ্কটি কপি করা হয়েছে!" : "Link Copied to Clipboard!";
+
             alert(msg);
+
         });
+
     }
+
+
 
     // ৬. পপআপের বাইরে ক্লিক করলে বন্ধ হওয়ার লজিক
+
     window.onclick = function(event) {
+
         const modal = document.getElementById('shareModal');
+
         if (event.target == modal) {
+
             closeModal();
+
         }
+
     }
 
+
+
     // ৭. পেজ লোড হওয়ার সময় ডিফল্ট ডাটা সেট
+
     window.onload = function() {
+
         document.querySelectorAll('.t').forEach(el => {
+
             const defaultText = el.getAttribute('data-bn');
+
             if (defaultText) el.innerText = defaultText;
+
         });
+
     };
 
+
+
     // ৮. ৩ডি টিল্ট ইফেক্ট (Desktop Only)
+
     const cards = document.querySelectorAll('.owner-card');
+
     cards.forEach(card => {
+
         card.addEventListener('mousemove', (e) => {
+
             const rect = card.getBoundingClientRect();
+
             const x = e.clientX - rect.left;
+
             const y = e.clientY - rect.top;
+
             const xc = rect.width / 2;
+
             const yc = rect.height / 2;
+
             const dx = x - xc;
+
             const dy = y - yc;
+
             card.style.transform = `rotateY(${dx / 10}deg) rotateX(${-dy / 10}deg) translateY(-8px)`;
+
         });
+
         card.addEventListener('mouseleave', () => {
+
             card.style.transform = `rotateY(0) rotateX(0) translateY(0)`;
+
         });
+
     });
+
     function openAboutModal() {
+
     document.getElementById('aboutModal').style.display = 'flex';
+
     if (window.navigator.vibrate) window.navigator.vibrate(20);
+
 }
+
+
 
 function closeAboutModal() {
+
     document.getElementById('aboutModal').style.display = 'none';
+
 }
 
+
+
 // আগের window.onclick ফাংশনটি আপডেট করে নিন যাতে নতুন মডালটিও বাইরে ক্লিক করলে বন্ধ হয়
+
 window.onclick = function(event) {
+
     const shareModal = document.getElementById('shareModal');
+
     const aboutModal = document.getElementById('aboutModal');
+
     if (event.target == shareModal) closeModal();
+
     if (event.target == aboutModal) closeAboutModal();
+
 }
+
     
+
     
+
     
+
 </script>
+
 </body>
+
 </html>
